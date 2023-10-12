@@ -1,0 +1,59 @@
+.caixa_questao{
+    background-color: gray;
+    text-align: justify;
+    padding: 10px;
+    border-radius: .5em;
+    margin: 3em 0;
+}
+
+.caixa_questao header{
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.caixa_questao footer{
+    display: flex;
+    justify-content: center;
+}
+
+#filtro{
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    margin: .1em;
+    position:fixed; 
+    top: 0;
+    right: 0;   
+}
+
+#botao_filtro{
+    background-color: rgba(0, 0, 0, 0.33);
+    border: 0;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+#botao_filtro:hover{
+    background-color:dimgray;
+}
+
+#opcoes_filtro{
+    display: none;
+    flex-direction: column;
+    border: 1px solid black;
+    text-align: right;
+    background-color:cornsilk;
+}
+
+input[type="button"]{
+    width: 100%;
+    padding: 10px;
+}
+
+.opcoes{
+    display: flex;
+    justify-content: space-between;
+
+}

@@ -1,0 +1,32 @@
+<!-- Código HTML base para todas as páginas -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <title>{% block titulo %}{% endblock %}</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+
+    <!-- Scripts e estilos de CDNs -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <nav>
+        <div class="menu">
+            <a href="{{ url_for('index') }}"> inicial |</a>
+            <a href="{{ url_for('get_questoes') }}"> questões | </a>
+        </div>
+    </nav>
+
+    {% block conteudo %}{% endblock %}
+
+</body>
+
+</html>

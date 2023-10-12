@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+  
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='questoes.css')}}">
+{% endblock %}
+
+{% block titulo %}Menu de questões{% endblock %} 
+
+{% block conteudo %}
+    
+    <main>
+        
+        <div id="filtro">
+            <button id="botao_filtro" class="material-icons">filter_list</button>
+            <div id="opcoes_filtro">
+                <div>
+                    <input type="button" name="botao_asc" id="botao_asc" value="Crescente">
+                </div>
+                <div>
+                    <input type="button" name="botao_desc" id="botao_desc" value="Decrescente">
+                </div>
+            </div>
+        </div>
+
+        {% for questao in dicionarios_questoes %}
+        <div class="caixa_questao" id="caixa_questao_{{questao['num_questao']}}">
+
+            <header>
+                <h1>Nível: {{ questao['dif_questao'] }}</h1>
+            </header>
+        
+            <p>{{ questao['txt_questao'] | safe }}</p>    
+            
+            {% if questao['img_questao'] is not none %}
+            <figure>
+                <img src="{{ url_for('get_imagem', n_questao=questao['num_questao']) }}" 
+                        alt="{{ questao['alt_questao'] }}">
+            </figure>
+            {% endif %}
+
+            <div class="opcoes">
+                {% for opcao in dicionario_opcoes if questao['num_questao'] == opcao['fk_num_questao'] %}
+                <input type="button" class="opcao" name="opcao_{{ opcao['num_opcao'] }}" value="{{ opcao['txt_opcao'] }}">
+                {% endfor %}
+            </div>            
+
+        </div>
+        
+        {% endfor %}
+        <script src=" {{ url_for('static', filename = 'questoes.js')}} "></script>
+    </main>
+
+{% endblock %}
