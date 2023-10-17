@@ -26,7 +26,7 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 - Python 3.5 ou superior (Pode ser instalado a partir do [site oficial](https://www.python.org/downloads/))
 - Flask 3.0.0 ou superior
 
-1 - Com o Python istalado, baixe a Aplicação Flask: Instale o Flask pelo prompt de comando:
+1 - Com o Python instalado, baixe o Flask pelo prompt de comando:
 ```shell
 python -m pip install Flask
 ```
