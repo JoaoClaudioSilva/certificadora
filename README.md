@@ -1,5 +1,5 @@
 
-# Certifísicadora
+# fisiKahoot!
 O projeto consistirá na criação de um sistema destinado ao ensino e aprendizagem da Física, com a finalidade de servir tanto a professores quanto a estudantes do Ensino Médio.
 ## Equipe
 
@@ -9,7 +9,7 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 - Eric Yuiti Kimura
 ## Link do repositório
 
-[Link do GitHub](https://github.com/JoaoClaudioSilva/certificadora)
+[Link do GitHub](https://github.com/JoaoClaudioSilva/fisikahoot)
 ## Stack utilizada
 
 **Front-end**
@@ -34,7 +34,7 @@ python -m pip install Flask
 2 - Abra o Prompt de Comando no seu sistema operacional. Certifique-se de estar no diretório raiz da aplicação Flask ou navegue até ele. Exemplo, se a aplicação estiver na área de trabalho, digite no cmd:
 
 ```shell
-cd Desktop\certifisicadora
+cd Desktop\fisikahoot
 ```
 
 3 - Estando na pasta da aplicação, rode o arquivo Python: 
