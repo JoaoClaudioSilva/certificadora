@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Scripts e estilos de CDNs -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -18,12 +18,26 @@
 </head>
 
 <body>
-    <nav>
-        <div class="menu">
-            <a href="{{ url_for('index') }}"> inicial |</a>
-            <a href="{{ url_for('get_questoes') }}"> questões | </a>
-        </div>
-    </nav>
+    <nav class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div class="relative flex h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+       
+            </div>
+            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div class="flex flex-shrink-0 items-center">
+                <img class="h-8 w-auto" src="https://www.utfpr.edu.br/icones/cabecalho/logo-utfpr/@@images/efcf9caf-6d29-4c24-8266-0b7366ea3a40.png" alt="UTFPR">
+              </div>
+              <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-4">
+                  <a href="{{ url_for('index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Inicio</a>
+                  <a href="{{ url_for('get_questoes') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Questões</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          </nav>
 
     {% block conteudo %}{% endblock %}
 
