@@ -9,13 +9,13 @@ app = Flask(__name__)
 @app.route('/imagens/imagem_<int:n_questao>')
 def get_imagem(n_questao):
     """
-    Recupera a imagem BLOB do banco de dados.
+    Recupera a imagem BLOB no banco de dados referente a questão, se houver
     
     Parâmetros:
-    n_questao (int): O número da questão (num_questao) no banco de dados.
+    n_questao (int): O número da questão (num_questao) no banco de dados
     
     Retorna:
-    Response ou None: Um objeto Flask contendo a imagem JPEG, ou None, caso não haja imagem. 
+    Response ou None: Um objeto Flask contendo a imagem JPEG, ou None, caso não haja imagem
     """
     
     conexao = sqlite3.connect('certificadora.db')
@@ -35,6 +35,16 @@ def get_imagem(n_questao):
 
 
 def get_dicts_questoes(ordem):
+    """
+    Recupera as questões no banco de dados, ordenadas pelo argumento do URL da página
+    
+    Parâmetros:
+    ordem: Ordem em que o conteúdo deve ser mostrado (nível de dificuldade crescente ou decrescente)
+    
+    Retorna:
+    dict: Dicionário contendo as questões ordenadas da forma que foi solicitada
+    """
+
 
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
@@ -71,6 +81,14 @@ def get_dicts_questoes(ordem):
 
 
 def get_dict_opcoes():
+    """
+    Recupera as opções das questões no banco de dados
+    
+    Parâmetros:
+    
+    Retorna:
+    dict: Dicionário contendo as opções das questões
+    """
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
 
@@ -97,19 +115,18 @@ def get_dict_opcoes():
 
 @app.route('/questoes/')
 def get_questoes():
-
-    ordem = request.args.get('ord')
     """
-    Recupera as questões do banco de dados.
+    Recupera as questões do banco de dados
     
     Parâmetros:
 
     
     Retorna:
     str: String da página renderizada com uma lista de dicionários, 
-    onde cada dicionário corresponde a uma tupla da tabela.
+    onde cada dicionário corresponde a uma tupla da tabela
     """
 
+    ordem = request.args.get('ord')
 
 
     dicionarios_questoes = get_dicts_questoes(ordem)
@@ -124,7 +141,7 @@ def get_questoes():
 @app.route('/')
 def index():
     """
-    Requisição referente a página inicial do site.
+    Requisição referente a página inicial do site
     
     Parâmetros:
 
