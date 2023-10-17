@@ -34,7 +34,7 @@ python -m pip install Flask
 2 - Abra o Prompt de Comando no seu sistema operacional. Certifique-se de estar no diretório raiz da aplicação Flask ou navegue até ele. Exemplo, se a aplicação estiver na área de trabalho, digite no cmd:
 
 ```shell
-cd Desktop\certificadora
+cd Desktop\certifisicadora
 ```
 
 3 - Estando na pasta da aplicação, rode o arquivo Python: 
