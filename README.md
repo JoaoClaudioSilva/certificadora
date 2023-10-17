@@ -1,5 +1,5 @@
 
-# Capaz
+# Certifísicadora
 O projeto consistirá na criação de um sistema destinado ao ensino e aprendizagem da Física, com a finalidade de servir tanto a professores quanto a estudantes do Ensino Médio.
 ## Equipe
 
