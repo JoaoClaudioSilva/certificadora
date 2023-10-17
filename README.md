@@ -36,7 +36,7 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 - No submenu "Variáveis do sistema", edite o campo "Path"
 
-- Adicione o caminho do Python, normalmente localizado em: "...\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.11"
+- Adicione o caminho do Python, normalmente localizado em: "...\AppData\Local\Programs\Python\Python311"
 
 2 - Com o Python instalado, baixe o Flask pelo prompt de comando:
 ```shell
