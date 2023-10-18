@@ -7,6 +7,7 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 - Mateus Luz Francischini Bonardi
 - Rafael Duarte Daltio
 - Eric Yuiti Kimura
+- José Victor Piccin
 ## Link do repositório
 
 [Link do GitHub](https://github.com/JoaoClaudioSilva/certificadora)
