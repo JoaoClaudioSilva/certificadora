@@ -44,9 +44,9 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 - Adicione o caminho do Python que você copiou antes, cole e confirme as alterações. 
 
-2 - Com o Python instalado, baixe o Flask pelo prompt de comando utilizando a seguinte linha:
+2 - Com o Python instalado, baixe os requisitos pelo prompt de comando utilizando a seguinte linha:
 ```shell
-python -m pip install Flask
+python -m pip install -r requirements.txt
 ```
 
 3 - Baixe o arquivo do [GitHub](https://github.com/JoaoClaudioSilva/fisikahoot), descompacte e navegue pelo Explorador de Arquivos até a pasta da aplicação. Copie o endereço da pasta descompactada "fisikahoot-main".
