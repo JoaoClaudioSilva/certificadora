@@ -1,54 +1,87 @@
 {% extends 'base.html' %}
-  
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='questoes.css')}}">
 {% endblock %}
 
-{% block titulo %}Menu de questões{% endblock %} 
+{% block titulo %}Menu de questões{% endblock %}
 
 {% block conteudo %}
-    
-    <main>
-        
-        <div id="filtro">
-            <button id="botao_filtro" class="material-icons">filter_list</button>
-            <div id="opcoes_filtro">
-                <div>
-                    <input type="button" name="botao_asc" id="botao_asc" value="Crescente">
+
+<main>
+    <section class="bg-white">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-20 lg:px-6">
+            <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Menu de Questões</h2>
+            </div>
+
+            <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                    <h3 class="mb-4 text-2xl font-semibold">Nivel 1</h3>
+                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Fácil</p>
+
+                    <button id="dropdownDefaultButton1" data-dropdown-toggle="dropdown1" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Questões <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <div id="dropdown1" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        {% for questao in dict_questoes if questao['dif_questao'] == 1 %}
+                            <li>
+                                <a href="{{ url_for('questao', num_questao=questao['num_questao'])}}" id="{{ questao['num_questao'] }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {{ questao['num_questao'] }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <input type="button" name="botao_desc" id="botao_desc" value="Decrescente">
+
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                    <h3 class="mb-4 text-2xl font-semibold">Nivel 2</h3>
+                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Medio</p>
+
+                    <button id="dropdownDefaultButton2" data-dropdown-toggle="dropdown2" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Questões <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <div id="dropdown2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        {% for questao in dict_questoes if questao['dif_questao'] == 2 %}
+                            <li>
+                                <a href="{{ url_for('questao', num_questao=questao['num_questao'])}}" id="{{ questao['num_questao'] }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {{ questao['num_questao'] }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                    <h3 class="mb-4 text-2xl font-semibold">Nivel 3</h3>
+                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Dificil</p>
+
+                    <button id="dropdownDefaultButton3" data-dropdown-toggle="dropdown3" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Questões <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <div id="dropdown3" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        {% for questao in dict_questoes if questao['dif_questao'] == 3 %}
+                            <li>
+                                <a href="{{ url_for('questao', num_questao=questao['num_questao'])}}" id="{{ questao['num_questao'] }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {{ questao['num_questao'] }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-
-        {% for questao in dicionarios_questoes %}
-        <div class="caixa_questao" id="caixa_questao_{{questao['num_questao']}}">
-
-            <header>
-                <h1>Nível: {{ questao['dif_questao'] }}</h1>
-            </header>
-        
-            <p>{{ questao['txt_questao'] | safe }}</p>    
-            
-            {% if questao['img_questao'] is not none %}
-            <figure class="imagem_questao">
-                <img src="{{ url_for('get_imagem', n_questao=questao['num_questao']) }}" 
-                        alt="{{ questao['alt_questao'] }}">
-            </figure>
-            {% endif %}
-
-            <div class="opcoes">
-                {% for opcao in dicionario_opcoes if questao['num_questao'] == opcao['fk_num_questao'] %}
-                <input type="button" class="opcao" name="opcao_{{ opcao['num_opcao'] }}" value="{{ opcao['txt_opcao'] }}">
-                {% endfor %}
-            </div>            
-
-        </div>
-        
-        {% endfor %}
-        <script src=" {{ url_for('static', filename = 'questoes.js')}} "></script>
-    </main>
-
+    </section>
+    <script src="{{ url_for('static', filename='questoes.js') }}"></script>
+</main>
 {% endblock %}

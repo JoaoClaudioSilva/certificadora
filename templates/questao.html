@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='questao.css')}}">
+{% endblock %}
+
+{% block titulo %}Menu de questões{% endblock %} 
+
+{% block conteudo %}
+    
+    <main>
+    {% if alert %}
+        <div id="overlay" class="absolute top-0 bottom-0 left-0 right-0 bg-gray-800 opacity-80 w-full h-full z-50"></div>
+        <div id="popup" tabindex="-1" class="display flex justify-content center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="p-4 md:p-5 text-center">
+                        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                        </svg>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Você já respondeu essa questão, deseja responder novamente?</h3>
+                        <button onclick="destruirPopup()" data-modal-hide="popup-modal" type="button" class="text-white bg-green-600 hover:bg-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                            Sim
+                        </button>
+                        <a href="{{ url_for('questoes') }}" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4  rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        <div class="caixa_questao">
+            <header>
+                <h1>Nível: {{ dict_questao['dif_questao'] }}</h1>
+            </header>
+        
+            <p>{{ dict_questao['txt_questao'] }}</p>
+
+            {% if dict_questao['img_questao'] is not none %}
+            <figure class="imagem_questao">
+                <img src="{{ url_for('get_imagem', n_questao=dict_questao['num_questao']) }}" alt="{{ dict_questao['alt_questao'] }}">
+            </figure>
+            {% endif %}
+
+            <div class="opcoes">
+                {% for opcao in dicts_opcoes %}
+                <input type="button" class="opcao" id="{{ opcao['num_opcao'] }}" name="opcao_{{ opcao['num_opcao'] }}" value="{{ opcao['txt_opcao'] }}" onclick="opcaoEscolhida(this)">
+                {% endfor %}
+            </div>            
+
+        </div>
+        <script src="{{ url_for('static', filename = 'questao.js')}} "></script>
+    </main>
+
+{% endblock %}

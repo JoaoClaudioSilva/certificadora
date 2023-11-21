@@ -7,7 +7,6 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 - Mateus Luz Francischini Bonardi
 - Rafael Duarte Daltio
 - Eric Yuiti Kimura
-- José Victor Piccin
 ## Link do repositório
 
 [Link do GitHub](https://github.com/JoaoClaudioSilva/certificadora)
@@ -31,9 +30,9 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 - Se necessário, atualize as variáveis do ambiente para que o Python seja reconhecido pelo prompt de comando.
 
-- Pesquise o Python no menu iniciar, clique com o botão direito em "Python 3.12 (64-bit)", e depois em "Abrir local do arquivo".
+- Pesquise o Python no menu iniciar, clique com o botão direito em "Python 3.11 (64-bit)", e depois em "Abrir local do arquivo".
 
-- Uma lista de atalhos do Python será aberta, clique novamente com o botão direito no "Python 3.12 (64-bit)" e abra o local do arquivo para achar o endereço original.
+- Uma lista de atalhos do Python será aberta, clique novamente com o botão direito no "Python 3.11 (64-bit)" e abra o local do arquivo para achar o endereço original.
 
 - Na barra de navegação de endereço dos arquivos, copie o caminho da pasta e guarde para os próximos passos.
 
