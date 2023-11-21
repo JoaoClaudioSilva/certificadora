@@ -45,20 +45,20 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 - Adicione o caminho do Python que você copiou antes, cole e confirme as alterações. 
 
-2 - Com o Python instalado, baixe os requisitos pelo prompt de comando utilizando a seguinte linha:
-```shell
-python -m pip install -r requirements.txt
-```
+2 - Baixe o arquivo do [GitHub](https://github.com/JoaoClaudioSilva/fisikahoot), descompacte e navegue pelo Explorador de Arquivos até a pasta da aplicação. Copie o endereço da pasta descompactada "fisikahoot-main".
 
-3 - Baixe o arquivo do [GitHub](https://github.com/JoaoClaudioSilva/fisikahoot), descompacte e navegue pelo Explorador de Arquivos até a pasta da aplicação. Copie o endereço da pasta descompactada "fisikahoot-main".
-
-4 - Abra o prompt de comando e digite cd e o local do arquivo copiado no passo anterior.
+3 - Abra o prompt de comando e digite cd e o local do arquivo copiado no passo anterior.
 
 Por exemplo, se a pasta estiver na sua área de trabalho:
 ```shell
 cd C:\Users\PC\Desktop\fisikahoot-main
 ```
-5 - Execute a seguinte linha no prompt de comando.
+4 - Já na pasta da aplicação, baixe os requisitos pelo prompt de comando utilizando a seguinte linha:
+```shell
+python -m pip install -r requirements.txt
+```
+
+5 - Depois de instalado, execute a seguinte linha no prompt de comando.
 ```shell
 python app.py
 ```
