@@ -51,7 +51,7 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 Por exemplo, se a pasta estiver na sua área de trabalho:
 ```shell
-cd C:\Users\PC\Desktop\fisikahoot-main
+cd C:\Users\PC\Desktop\fisikahoot-main\main
 ```
 4 - Já na pasta da aplicação, baixe os requisitos pelo prompt de comando utilizando a seguinte linha:
 ```shell
