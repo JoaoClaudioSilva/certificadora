@@ -49,7 +49,7 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 3 - Abra o prompt de comando e digite cd e o local do arquivo copiado no passo anterior.
 
-Por exemplo, se a pasta estiver na sua área de trabalho:
+Por exemplo, se a pasta estiver na sua área de trabalho, lembre-se de alterar o PC pelo seu nome de Usuário:
 ```shell
 cd C:\Users\PC\Desktop\fisikahoot-main\main
 ```
