@@ -17,10 +17,12 @@ function opcaoEscolhida(botaoAcionado){
 
     xhr.responseType = "text";
     xhr.onload = () => {
+        let resposta;
         if (xhr.readyState === 4 && xhr.status === 200) {
             resposta = xhr.response;
-            if(resposta == 1) flashElemento('blue', botaoAcionado);
-            if(resposta == 0) flashElemento('red', botaoAcionado);
+            console.log(resposta)
+            if (resposta == 1) flashElemento('blue', botaoAcionado);
+            if (resposta == 0) flashElemento('red', botaoAcionado);
         } else {
             console.log(`Error: ${xhr.status}`);
         }

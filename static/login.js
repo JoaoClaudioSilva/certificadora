@@ -1,4 +1,4 @@
 function logarUsuario(){
-    var usuario = document.getElementById("name").value;
-    var senha = document.getElementById("password").value;
+    let usuario = document.getElementById("name").value;
+    let senha = document.getElementById("password").value;
 }

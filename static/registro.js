@@ -1,14 +1,14 @@
 function validarFormulario() {
-    var usuario = document.getElementById("name").value;
-    var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirm-password").value;
+    let usuario = document.getElementById("name").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirm-password").value;
 
     if (!caracteresValidos(usuario)){
         alert("O usuário não pode possuir caracteres especiais. Tente novamente");
         return false;
     }
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
         alert("As senhas devem ser iguais. Tente novamente.");
         return false;
     }
@@ -24,6 +24,6 @@ function validarFormulario() {
 
 function caracteresValidos(str) {
 
-    var regex = /^[a-zA-Z0-9_-]+$/;
+    let regex = /^[a-zA-Z0-9_-]+$/;
     return regex.test(str);
 }

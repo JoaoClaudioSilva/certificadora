@@ -35,7 +35,7 @@
                                 <a href="{{ url_for('registro') }}" class="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Criar conta</a>
                             {% else %}
                                 <a href="{{ url_for('questoes') }}" class="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Questões</a>
-
+                                <a href="{{ url_for('perfil') }}" class="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Meu perfil</a>
                                 <form class="text-white hover:bg-red-700 hover:text-red rounded-md px-3 py-2 text-sm font-medium" action="/logout/endpoint/" method="post">
                                     <input type="submit" value="Logout">
                                 </form>
