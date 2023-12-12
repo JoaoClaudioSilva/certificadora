@@ -1,6 +1,6 @@
 from flask import *
-import sqlite3  # Trabalha com o banco de dados
-import io  # Trata BLOBS de imagens
+import sqlite3 
+import io  
 
 
 def get_imagem(n_questao: int):
@@ -204,28 +204,23 @@ def get_questao_endpoint():
                        (num_questao, session['username']))
         questao_resolvida = cursor.fetchone()
 
-        print(questao_resolvida)
         dict_questao = get_dict_questao(num_questao)
-        if dict_questao['dif_questao'] == 1:
-            pts_ganhos = 100
-        elif dict_questao['dif_questao'] == 2:
-            pts_ganhos = 250
-        elif dict_questao['dif_questao'] == 3:
-            pts_ganhos = 500
-        else:
-            pts_ganhos = 0
+        pts_ganhos = 0
 
-        if questao_resolvida:
-            print('divide')
-            pts_ganhos /= 2
 
-        cursor.execute(
-            'INSERT INTO questao_usuario (fk_nme_usuario, fk_num_questao, pts_questao_usuario) VALUES (?, ?, ?)',
-            (session['username'], num_questao, pts_ganhos))
+        if resposta == 1:
+            if not questao_resolvida:
+                pts_ganhos = 100 if dict_questao['dif_questao'] == 1 else 250 if dict_questao['dif_questao'] == 2 else 500
 
-        # Atualizar a pontuação total do usuário
-        cursor.execute('UPDATE usuario SET pts_usuario = pts_usuario + ? WHERE nme_usuario = ?',
-                       (pts_ganhos, session['username']))
+            else:
+                pts_ganhos = 50 if dict_questao['dif_questao'] == 1 else 125 if dict_questao['dif_questao'] == 2 else 250
+        
+            cursor.execute(
+                'INSERT INTO questao_usuario (fk_nme_usuario, fk_num_questao, pts_questao_usuario) VALUES (?, ?, ?)',
+                (session['username'], num_questao, pts_ganhos))
+
+            cursor.execute('UPDATE usuario SET pts_usuario = pts_usuario + ? WHERE nme_usuario = ?',
+                (pts_ganhos, session['username']))
 
         conexao.commit()
 
@@ -237,6 +232,10 @@ def get_questao_endpoint():
     else:
         flash("Você não está logado!")
         return redirect(url_for('index'))
+
+
+
+
 
 
 def get_questao():
