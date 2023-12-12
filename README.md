@@ -51,16 +51,21 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 
 Por exemplo, se a pasta estiver na sua área de trabalho, lembre-se de alterar o PC pelo seu nome de Usuário:
 ```shell
-cd C:\Users\PC\Desktop\fisikahoot-main\main
+cd C:\Users\PC\Desktop\fisikahoot-main
 ```
 4 - Já na pasta da aplicação, baixe os requisitos pelo prompt de comando utilizando a seguinte linha:
 ```shell
 python -m pip install -r requirements.txt
 ```
+5 - Agora entre na pasta main.
 
-5 - Depois de instalado, execute a seguinte linha no prompt de comando.
+```shell
+cd main
+```
+
+6 - Depois de instalado, execute a seguinte linha no prompt de comando.
 ```shell
 python app.py
 ```
 
-6 - Após executar, o Flask irá informar em qual endereço local o aplicativo está sendo executado. Geralmente será algo como http://127.0.0.1:5000/ ou http://localhost:5000/. Copie esse endereço e cole-o na barra de pesquisa do seu navegador.
+7 - Após executar, o Flask irá informar em qual endereço local o aplicativo está sendo executado. Geralmente será algo como http://127.0.0.1:5000/ ou http://localhost:5000/. Copie esse endereço e cole-o na barra de pesquisa do seu navegador.
