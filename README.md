@@ -11,6 +11,8 @@ O projeto consistirá na criação de um sistema destinado ao ensino e aprendiza
 ## Link do repositório
 
 [Link do GitHub](https://github.com/JoaoClaudioSilva/certificadora)
+[Link para  vídeo de apresentação]([https://github.com/JoaoClaudioSilva/certificadora](https://drive.google.com/file/d/1q16dRuzoRaSXlIyBAHteiamPqofgu3kk/view?usp=sharing))
+
 ## Stack utilizada
 
 **Front-end**
