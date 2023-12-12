@@ -1,13 +1,86 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<p>PERFIL COM PONTOS CONFIA 👍</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block titulo %}Meu perfil{% endblock %}
+
+{% block conteudo %}
+
+<div class="container mx-auto my-5 p-5">
+    <div class="md:flex no-wrap md:-mx-2 ">
+        <!-- Left Side -->
+        <div class="w-full md:w-3/12 md:mx-2">
+            <!-- Profile Card -->
+            <div class="flex bg-white p-3 border-t-4 border-gray-800">
+                <img class="w-10 h-10 rounded-full" src="https://media.istockphoto.com/id/885240276/pt/vetorial/male-avatar-profile-picture-silhouette-light-shadow.jpg?s=170667a&w=0&k=20&c=xVNUqekwE90Z9_3RjmzufBVpU5oHpwRfBzY9r7J54-8=" alt="Avatar">
+                <h1 class="text-gray-900 font-bold text-xl leading-8 my-1 ml-2">{{ username }}</h1>
+            </div>
+            <div>
+                <ul
+                class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                <li class="flex items-center py-3">
+                    <span>Status</span>
+                    <span class="ml-auto">
+                    <span class="bg-green-500 py-1 px-2 rounded text-white text-sm">Online</span>
+                    </span>
+                </li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="w-full md:w-9/12 mx-2 h-64">
+            <div class="bg-white p-3 shadow-sm rounded-sm">
+                <div class="grid grid-cols-2">
+                    <div>
+                        <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                            <span class="text-green-500">
+                                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </span>
+                            <span class="tracking-wide">Histórico de perguntas</span>
+                        </div>
+                        <ul class="list-inside space-y-2">
+                            {% for questao in resolvidas %}
+                            <li>
+                                <a class="text-teal-600" href="/questao/?num_questao={{ questao[0] }}">Questão {{ questao[0] }}.</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                            <span class="text-green-500">
+                                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path fill="#fff" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                    <path fill="#fff"
+                                        d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+                                </svg>
+                            </span>
+                            <span class="tracking-wide">Valor da questão</span>
+                        </div>
+                        <ul class="list-inside space-y-2">
+                            {% for resolvida in resolvidas %}
+                            <li>
+                                <div class="text-teal-600">{{ resolvida[1] }}</div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+
+                    </div>
+
+                </div>
+                <div class="bg-white p-3 shadow-sm rounded-sm">
+                    <div class="mt-4 border-t-2 border-gray-300 pt-4">
+                        <span class="font-semibold text-gray-900">Soma da Pontuação: {{ pontos }}</span>
+                        <span class="text-teal-600 ml-2" id="totalScore"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

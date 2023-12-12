@@ -1,18 +1,9 @@
-from flask import *  # Cria aplicações web
-import io  # Trata BLOBS de imagens
-import sqlite3  # Trabalha com o banco de dados
-from flask_session import Session
-
-app = Flask(__name__)
-
-app.config['SESSION_TYPE'] = 'filesystem'
-Session(app)
-
-app.secret_key = 'your_secret_key'
+from flask import *
+import sqlite3 
+import io  
 
 
-@app.route('/imagens/imagem_<int:n_questao>')
-def get_imagem(n_questao):
+def get_imagem(n_questao: int):
     """
     Recupera a imagem BLOB no banco de dados referente a questão, se houver
     
@@ -39,6 +30,15 @@ def get_imagem(n_questao):
 
 
 def get_dict_questoes():
+    """
+    Recupera as questões armazenadas no banco de dados em um dict
+
+    Parâmetros:
+
+    Retorna:
+    list[dict]: Um objeto dict contendo as questões
+    """
+
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
 
@@ -55,7 +55,16 @@ def get_dict_questoes():
     return dicts_questoes
 
 
-def get_dict_questao(num_questao):
+def get_dict_questao(num_questao: int):
+    """
+    Recupera uma questão específica armazenada no banco de dados em um dict
+
+    Parâmetros:
+    num_questao (int): Número da questão
+
+    Retorna:
+    dict: Um objeto dict contendo a questão
+    """
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
 
@@ -74,15 +83,17 @@ def get_dict_questao(num_questao):
     return dict_questao
 
 
-def get_dict_opcoes(num_questao):
+def get_dict_opcoes(num_questao: int):
     """
-    Recupera as opções das questões no banco de dados
+    Recupera as opções das questões no banco de dados de uma questão específica
     
     Parâmetros:
-    
+    num_questao (int): Número da questão para ser encontrada as opções
+
     Retorna:
-    dict: Dicionário contendo as opções das questões
+    list[dict]: Dicionário contendo as opções das questões
     """
+
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
 
@@ -99,27 +110,40 @@ def get_dict_opcoes(num_questao):
     return dicts_opcoes
 
 
-
-@app.route('/login/')
-def login():
+def resolvida(num_questao):
     """
-    Requisição referente a página de login do site
-    
-    Parâmetros:
+    Testa se a questão já foi resolvida anteriormente pelo usuário
 
+    Parâmetros:
+    num_questao (int): Número da questão para ser testada se já foi resolvida
 
     Retorna:
-    str: String da página renderizada
+    bool: True sejá foi resolvida e False caso contrário
     """
 
-    return render_template('login.html')
+    conexao = sqlite3.connect('certificadora.db')
+    cursor = conexao.cursor()
+
+    cursor.execute('SELECT 1 FROM questao_usuario WHERE fk_num_questao = ? AND fk_nme_usuario = ?',
+                   (num_questao, session['username']))
+    questao_resolvida = cursor.fetchone()
+
+    if questao_resolvida:
+        return True
+    else:
+        return False
 
 
-@app.route('/login/endpoint/', methods=['POST'])
-def login_endpoint():
+def get_login():
+    """
+    Realiza o login do usuário com usuário e senha, se existir no banco de dados
+
+    Parâmetros:
+
+    Retorna:
+    Response: Redirect para a página correspondente (volta a login se não existir ou index se existir o login)
     """
 
-    """
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
 
@@ -140,40 +164,17 @@ def login_endpoint():
     return redirect(url_for('login'))
 
 
-@app.route('/logout/endpoint/', methods=['POST'])
-def logout_endpoint():
-    """
-    """
-    session.clear()
-    return redirect(url_for('login'))
-
-
-@app.route('/registro/')
-def registro():
-    """
-    Requisição referente a página de login do site
-    
-    Parâmetros:
-
-
-    Retorna:
-    str: String da página renderizada
-    """
-    return render_template('registro.html')
-
-
-@app.route('/registro/endpoint/', methods=['POST'])
-def registro_endpoint():
-    """
-    """
+def get_registro_endpoint():
     conexao = sqlite3.connect('certificadora.db')
     cursor = conexao.cursor()
 
     try:
         name = request.form.get('name')
+        print(name)
         password = request.form.get('password')
+        print(password)
 
-        cursor.execute('INSERT INTO usuario VALUES (?, ?)', (name, password))
+        cursor.execute('INSERT INTO usuario (nme_usuario, pwd_usuario) VALUES (?, ?)', (name, password))
         cursor.close()
 
         flash('Usuário cadastrado com sucesso, faça o login')
@@ -189,29 +190,63 @@ def registro_endpoint():
             conexao.close()
 
 
-def resolvida(num_questao):
-    conexao = sqlite3.connect('certificadora.db')
-    cursor = conexao.cursor()
+def get_questao_endpoint():
+    if 'logged_in' in session and session['logged_in']:
+        conexao = sqlite3.connect('certificadora.db')
+        cursor = conexao.cursor()
 
-    cursor.execute('SELECT 1 FROM questao_usuario WHERE fk_num_questao = ? AND fk_nme_usuario = ?', (num_questao, session['username']))
-    questaoResolvida = cursor.fetchone()
+        num_opcao = request.args.get("opcao")
 
-    if questaoResolvida:
-        return True
+        cursor.execute('SELECT bin_opcao, fk_num_questao FROM opcao WHERE num_opcao = ?', (num_opcao,))
+        resposta, num_questao = cursor.fetchone()
+
+        cursor.execute('SELECT 1 FROM questao_usuario WHERE fk_num_questao = ? AND fk_nme_usuario = ?',
+                       (num_questao, session['username']))
+        questao_resolvida = cursor.fetchone()
+
+        dict_questao = get_dict_questao(num_questao)
+        pts_ganhos = 0
+
+
+        if resposta == 1:
+            if not questao_resolvida:
+                pts_ganhos = 100 if dict_questao['dif_questao'] == 1 else 250 if dict_questao['dif_questao'] == 2 else 500
+
+            else:
+                pts_ganhos = 50 if dict_questao['dif_questao'] == 1 else 125 if dict_questao['dif_questao'] == 2 else 250
+        
+            cursor.execute(
+                'INSERT INTO questao_usuario (fk_nme_usuario, fk_num_questao, pts_questao_usuario) VALUES (?, ?, ?)',
+                (session['username'], num_questao, pts_ganhos))
+
+            cursor.execute('UPDATE usuario SET pts_usuario = pts_usuario + ? WHERE nme_usuario = ?',
+                (pts_ganhos, session['username']))
+
+        conexao.commit()
+
+        cursor.close()
+        conexao.close()
+
+        return jsonify(resposta), 200, {'Content-Type': 'application/text'}
+
     else:
-        return False
+        flash("Você não está logado!")
+        return redirect(url_for('index'))
 
 
-@app.route('/questao/', methods=['GET'])
-def questao():
+
+
+
+
+def get_questao():
     """
     Recupera as questões do banco de dados
-    
+
     Parâmetros:
 
-    
+
     Retorna:
-    str: String da página renderizada com uma lista de dicionários, 
+    str: String da página renderizada com uma lista de dicionários,
     onde cada dicionário corresponde a uma tupla da tabela
     """
     if 'logged_in' in session and session['logged_in']:
@@ -231,79 +266,50 @@ def questao():
 
         dif_resolvidas = tuple(item[0] + 1 for item in set(cursor.fetchall()))
 
-
         dict_questao = get_dict_questao(num_questao)
         dicts_opcoes = get_dict_opcoes(num_questao)
 
         if dict_questao['dif_questao'] not in dif_resolvidas + (1,):
             return redirect(url_for('questoes'))
 
+        cursor.close()
+        conexao.close()
+
         return render_template('questao.html', dict_questao=dict_questao, dicts_opcoes=dicts_opcoes,
                                alert=resolvida(num_questao))
 
-
     else:
         flash("Voce nao esta logado!")
         return redirect(url_for('index'))
 
 
-@app.route('/questoes/')
-def questoes():
+def get_perfil():
+    conexao = sqlite3.connect('certificadora.db')
+    cursor = conexao.cursor()
+
+    subquery_result = cursor.execute('SELECT fk_num_questao FROM questao_usuario WHERE fk_nme_usuario = ?',
+                                     (session['username'],)).fetchall()
+
+    num_questao_values = [result[0] for result in subquery_result]
+
+    cursor.execute('SELECT num_questao, pts_questao FROM questao WHERE num_questao IN ({})'
+                   .format(', '.join('?' for _ in num_questao_values)), num_questao_values)
+
+    resolvidas = cursor.fetchall()
+
+    cursor.close()
+    conexao.close()
+
+    pontos = 0
+
     if 'logged_in' in session and session['logged_in']:
-        dict_questoes = get_dict_questoes()
-
-        return render_template('questoes.html', dict_questoes=dict_questoes)
-    else:
-        flash("Voce nao esta logado!")
-        return redirect(url_for('index'))
-
-
-@app.route('/questao/endpoint/', methods=['GET'])
-def questao_endpoint():
-    if 'logged_in' in session and session['logged_in']:
-
-        conexao = sqlite3.connect("certificadora.db")
+        conexao = sqlite3.connect('certificadora.db')
         cursor = conexao.cursor()
 
-        num_opcao = request.args.get("opcao")
-
-        cursor.execute('SELECT bin_opcao FROM opcao WHERE num_opcao = ?', (num_opcao,))
-        resposta = cursor.fetchone()
-
-        cursor.execute('SELECT fk_num_questao FROM opcao WHERE num_opcao=?', (num_opcao,))
-        num_questao = cursor.fetchone()[0]
-
-        cursor.execute('INSERT INTO questao_usuario (fk_nme_usuario, fk_num_questao) VALUES (?, ?)',
-                       (session['username'], num_questao))
-
-        conexao.commit()
+        cursor.execute('SELECT pts_usuario FROM usuario WHERE nme_usuario = ?', (session['username'],))
+        pontos = cursor.fetchone()[0]
 
         cursor.close()
         conexao.close()
 
-        if resposta:
-            return jsonify(resposta[0]), 200, {'Content-Type': 'application/text'}
-        else:
-            return jsonify(None)
-
-    else:
-        flash("Voce nao esta logado!")
-        return redirect(url_for('index'))
-
-
-@app.route('/')
-def index():
-    """
-    Requisição referente a página inicial do site
-    
-    Parâmetros:
-
-    
-    Retorna:
-    str: String da página renderizada
-    """
-    return render_template('index.html')
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return render_template('perfil.html', resolvidas=resolvidas, pontos=pontos, username=session['username'])
